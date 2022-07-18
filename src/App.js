@@ -69,14 +69,14 @@ function App() {
       <div className='app'>
         <div className={coords.length === 0 ? 'main-part-wrapper disable' : 'main-part-wrapper'}>
           <div id='desc-wrapper'>
-            <h3>{coords[2]}</h3>
-            <h4>{coords[3]}</h4>
-            <p>long = {coords[0]}</p>
-            <p>latt = {coords[1]}</p>
-            <p>localtime = {infoAboutCity.localtime}</p>
-            <p>temp_c = {infoAboutCity.temp_c}</p>
-            <p>desc = {infoAboutCity.desc}</p>
-            <p>uv = {infoAboutCity.uv}</p>
+            <h3 class='text'>{coords[2]}</h3>
+            <h4 class='text'>{coords[3]}</h4>
+            <p class='text'>long = {coords[0]}</p>
+            <p class='text'>latt = {coords[1]}</p>
+            <p class='text'>localtime = {infoAboutCity.localtime}</p>
+            <p class='text'>temp_c = {infoAboutCity.temp_c}</p>
+            <p class='text'>desc = {infoAboutCity.desc}</p>
+            <p class='text'>uv = {infoAboutCity.uv}</p>
           </div>
 
           <div className='give-hint-wrapper'>
