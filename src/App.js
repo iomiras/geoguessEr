@@ -29,7 +29,7 @@ function App() {
     if (coords[3]) {
       var config = {
         method: 'post',
-        url: `http://api.weatherapi.com/v1/current.json?key=774610bc93ad427ab0d54259220807&q=${coords[1]},${coords[0]}`,
+        url: `https://api.weatherapi.com/v1/current.json?key=774610bc93ad427ab0d54259220807&q=${coords[1]},${coords[0]}`,
         headers: {}
       };
 
