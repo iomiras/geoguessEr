@@ -4,12 +4,14 @@ body {
 }
 
 .app {
-  height: 96vh;
+  height: 95vh;
   width: 48vw;
   display: flex;
   flex-direction: column;
   background-color: white;
 }
+
+@media screen and (max-width: 480px) {}
 
 .text {
   font-size: 2.5vh;
@@ -17,6 +19,7 @@ body {
 }
 
 #desc-wrapper {
+  padding: 0 10px;
   text-align: center;
   background-color: aquamarine;
   width: 30vw;
@@ -39,15 +42,21 @@ body {
   background-color: silver;
 } */
 
+#hint-button {
+  width: 100%;
+}
+
 input {
   height: 5vmin;
-  width: 25vmin;
+  width: 25%;
   border-radius: 3px;
   border: none
 }
 
 button {
-  padding: 1vmin;
+  min-height: 5vmin;
+  width: 25%;
+  text-align: center;
   font-size: 2vmin;
   height: auto;
   border-radius: 3px;
