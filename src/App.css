@@ -3,6 +3,11 @@ body {
   padding: 2vh 2vw;
 }
 
+.all {
+  display: flex;
+  flex-direction: row;
+}
+
 .app {
   height: 95vh;
   width: 48vw;

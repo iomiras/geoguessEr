@@ -1,7 +1,12 @@
+// /* global google */
+// /* eslint-disable no-undef */
 import './App.css';
+import React from 'react';
 import cities from 'cities.json';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+// import UserChoice from './marker';
 // let res = cities.values()
 
 function App() {
@@ -12,6 +17,44 @@ function App() {
   const [result, setResult] = useState(false)
   const [showResult, setShowResult] = useState(false)
   const [askedHint, setAskedHint] = useState(false)
+  // const [position, setPosition] = useState({ lat: 43.238949, lng: 76.889709 })
+
+  // const [marker, setMarker] = useState()
+
+  // const google = window.google;
+
+  const containerStyle = {
+    width: '48vw',
+    height: '95vh'
+  };
+
+  const center = {
+    lat: 43.238949,
+    lng: 76.889709
+  };
+
+  const position = {
+    lat: 43.238949,
+    lng: 76.889709
+  };
+
+  // var position = new window.google.maps.LatLng(-34.397, 150.644)
+
+  const onLoad = marker => {
+    console.log(marker)
+    // setMarker(marker)
+    // console.log('marker: ', marker)
+    // console.log('marker: ', marker.position)
+  }
+
+
+  const defaultMapOptions = {
+    fullscreenControl: false,
+    mapTypeControl: false,
+    streetViewControl: false,
+    minZoom: 0,
+    maxZoom: 18
+  };
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value)
@@ -28,12 +71,14 @@ function App() {
     if (userInput.toLowerCase() === coords[3].toLowerCase()) {
       setResult(true)
       setUserInput('')
-    }
+    } else setResult(false)
     setShowResult(true)
   }
 
   function handleGetHints() {
     if (coords[3]) {
+      // console.log('position---- ', position)
+      // console.log(marker)
       setAskedHint(true)
       var config = {
         method: 'post',
@@ -52,7 +97,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(randomCity)
+    // console.log(randomCity)
     if (randomCity.length !== 0) {
       let config = {
         method: 'get',
@@ -64,6 +109,7 @@ function App() {
         .then(function (response) {
           setCoords([response.data.longt, response.data.latt, response.data.standard.countryname, response.data.standard.city])
           setInfoAboutCity({ localtime: '', temp_c: '', desc: '', uv: '' })
+          // setPosition({ lat: parseFloat(response.data.latt), lng: parseFloat(response.data.longt) })
         })
         .catch(function (error) {
           console.error(error.response.data.error.message)
@@ -72,7 +118,7 @@ function App() {
   }, [randomCity]);
 
   return (
-    <>
+    <div className='all'>
       <div className='app'>
         <div className={coords.length === 0 ? 'main-part-wrapper disable' : 'main-part-wrapper'}>
           <div id='desc-wrapper'>
@@ -101,8 +147,31 @@ function App() {
 
         <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}</h3>
       </div >
-      <div className='map'></div>
-    </>
+      {/* <Wrapper apiKey={"AIzaSyAF7mXLqb5GB5VINaURmUfnLjb753dfs2c"} render={render}>
+      </Wrapper> */}
+      <div className='map'>
+        <LoadScript
+          googleMapsApiKey="AIzaSyAF7mXLqb5GB5VINaURmUfnLjb753dfs2c"
+        >
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={0}
+            clickableIcons={false}
+            draggable={true}
+            options={defaultMapOptions}
+          >
+
+
+            <Marker onLoad={onLoad} position={position}></Marker>
+
+          </GoogleMap>
+        </LoadScript>
+      </div> {/* end of map element  */}
+      {/* end of app element  =>*/}
+
+      {/* <p style={{ font- size: 2px'}}><a href="https://www.flaticon.com/free-icons/marker" title="marker icons">Marker icons created by kmg design - Flaticon</a></p> */}
+    </div >
   );
 }
 
