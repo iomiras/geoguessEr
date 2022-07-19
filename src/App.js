@@ -15,9 +15,6 @@ function App() {
   const MapsKey = process.env.REACT_APP_MAPS_API
   const WeatherKey = process.env.REACT_APP_WEATHER_API
 
-  console.log('maps: ', MapsKey)
-  console.log('weather: ', WeatherKey)
-
 
   const [randomCity, setRandomCity] = useState([])
   const [coords, setCoords] = useState([])
@@ -111,7 +108,6 @@ function App() {
       let config = {
         method: 'get',
         url: `https://geocode.xyz/${randomCity.name}?json=1`,
-        // auth=150366775057454160900x98081
       };
 
       axios(config)
