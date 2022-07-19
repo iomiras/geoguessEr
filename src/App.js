@@ -7,15 +7,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import { Wrapper } from '@googlemaps/react-wrapper';
-// , LoadScript
-// import UserChoice from './marker';
-// let res = cities.values()
 
 function App() {
   const MapsKey = process.env.REACT_APP_MAPS_API
   const WeatherKey = process.env.REACT_APP_WEATHER_API
+  console.log(MapsKey)
 
-  // hello
 
   const [randomCity, setRandomCity] = useState([])
   const [coords, setCoords] = useState([])
@@ -24,7 +21,7 @@ function App() {
   const [result, setResult] = useState(false)
   const [showResult, setShowResult] = useState(false)
   const [askedHint, setAskedHint] = useState(false)
-  // const [position, setPosition] = useState({ lat: 43.238949, lng: 76.889709 })
+  const [position, setPosition] = useState({ lat: 43.238949, lng: 76.889709 })
 
   // const [marker, setMarker] = useState()
 
@@ -33,16 +30,6 @@ function App() {
   const containerStyle = {
     width: '48vw',
     height: '95vh'
-  };
-
-  const center = {
-    lat: 43.238949,
-    lng: 76.889709
-  };
-
-  const position = {
-    lat: 43.238949,
-    lng: 76.889709
   };
 
   // var position = new window.google.maps.LatLng(-34.397, 150.644)
@@ -59,7 +46,7 @@ function App() {
     fullscreenControl: false,
     mapTypeControl: false,
     streetViewControl: false,
-    minZoom: 0,
+    minZoom: 2,
     maxZoom: 18
   };
 
@@ -115,7 +102,7 @@ function App() {
         .then(function (response) {
           setCoords([response.data.longt, response.data.latt, response.data.standard.countryname, response.data.standard.city])
           setInfoAboutCity({ localtime: '', temp_c: '', desc: '', uv: '' })
-          // setPosition({ lat: parseFloat(response.data.latt), lng: parseFloat(response.data.longt) })
+          setPosition({ lat: parseFloat(response.data.latt), lng: parseFloat(response.data.longt) })
         })
         .catch(function (error) {
           console.error(error.response.data.error.message)
@@ -160,7 +147,7 @@ function App() {
         >
           <GoogleMap
             mapContainerStyle={containerStyle}
-            center={center}
+            center={position}
             zoom={0}
             clickableIcons={false}
             draggable={true}
