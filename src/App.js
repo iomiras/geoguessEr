@@ -5,11 +5,20 @@ import React from 'react';
 import cities from 'cities.json';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
+import { Wrapper } from '@googlemaps/react-wrapper';
+// , LoadScript
 // import UserChoice from './marker';
 // let res = cities.values()
 
 function App() {
+  const MapsKey = process.env.REACT_APP_MAPS_API
+  const WeatherKey = process.env.REACT_APP_WEATHER_API
+
+  console.log('maps: ', MapsKey)
+  console.log('weather: ', WeatherKey)
+
+
   const [randomCity, setRandomCity] = useState([])
   const [coords, setCoords] = useState([])
   const [userInput, setUserInput] = useState('')
@@ -40,12 +49,12 @@ function App() {
 
   // var position = new window.google.maps.LatLng(-34.397, 150.644)
 
-  const onLoad = marker => {
-    console.log(marker)
-    // setMarker(marker)
-    // console.log('marker: ', marker)
-    // console.log('marker: ', marker.position)
-  }
+  // const onLoad = marker => {
+  //   console.log(marker)
+  //   // setMarker(marker)
+  //   // console.log('marker: ', marker)
+  //   // console.log('marker: ', marker.position)
+  // }
 
 
   const defaultMapOptions = {
@@ -82,7 +91,7 @@ function App() {
       setAskedHint(true)
       var config = {
         method: 'post',
-        url: `https://api.weatherapi.com/v1/current.json?key=774610bc93ad427ab0d54259220807&q=${coords[1]},${coords[0]}`,
+        url: `https://api.weatherapi.com/v1/current.json?key=${WeatherKey}&q=${coords[1]},${coords[0]}`,
         headers: {}
       };
 
@@ -150,8 +159,7 @@ function App() {
       {/* <Wrapper apiKey={"AIzaSyAF7mXLqb5GB5VINaURmUfnLjb753dfs2c"} render={render}>
       </Wrapper> */}
       <div className='map'>
-        <LoadScript
-          googleMapsApiKey="AIzaSyAF7mXLqb5GB5VINaURmUfnLjb753dfs2c"
+        <Wrapper apiKey={MapsKey}
         >
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -163,10 +171,10 @@ function App() {
           >
 
 
-            <Marker onLoad={onLoad} position={position}></Marker>
+            <Marker position={position}></Marker>
 
           </GoogleMap>
-        </LoadScript>
+        </Wrapper>
       </div> {/* end of map element  */}
       {/* end of app element  =>*/}
 
