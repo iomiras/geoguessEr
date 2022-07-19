@@ -11,7 +11,6 @@ import { Wrapper } from '@googlemaps/react-wrapper';
 function App() {
   const MapsKey = process.env.REACT_APP_MAPS_API
   const WeatherKey = process.env.REACT_APP_WEATHER_API
-  console.log(MapsKey)
 
 
   const [randomCity, setRandomCity] = useState([])
