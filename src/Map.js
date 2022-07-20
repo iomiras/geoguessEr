@@ -33,7 +33,7 @@ export const Map = ({ position, setPosition }) => {
             <Wrapper apiKey={MapsKey}>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={position}
+                    center={undefined}
                     zoom={0}
                     clickableIcons={false}
                     draggable={true}
