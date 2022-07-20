@@ -78,27 +78,31 @@ function App() {
           <div id='desc-wrapper'>
             {/* <h3 className='text'>{coords[2]}</h3>
             <h4 className='text'>{coords[3]}</h4> */}
-            <p className='text'>Longitude = <b> {coords[0]} </b></p>
-            <p className='text'>Latitude = <b> {coords[1]} </b></p>
+            <div>
+              <p className='text'>Longitude = <b> {coords[0]} </b></p>
+              <p className='text'>Latitude = <b> {coords[1]} </b></p>
+            </div>
             <div className={askedHint ? 'enable' : 'disable'}>
-              <p className='text'>Local time = <b> {infoAboutCity.localtime} </b></p>
-              <p className='text'>Temperature = <b> {infoAboutCity.temp_c}°C </b></p>
-              <p className='text'>Weather = <b> {infoAboutCity.desc} </b></p>
-              <p className='text'>UV index = <b> {infoAboutCity.uv} </b></p>
+              <p className='text hint'>Local time = <b> {infoAboutCity.localtime} </b></p>
+              <p className='text hint'>Temperature = <b> {infoAboutCity.temp_c}°C </b></p>
+              <p className='text hint'>Weather = <b> {infoAboutCity.desc} </b></p>
+              <p className='text hint'>UV index = <b> {infoAboutCity.uv} </b></p>
             </div>
           </div>
 
           <div className='give-hint-wrapper'>
-            <button id='hint-button' onClick={handleGetHints} type="submit">Give me a hint</button>
+            <button id='hint-button' onClick={handleGetHints} type="submit">Give me a hint 💡</button>
           </div>
         </div>
 
         <div id='int-area'>
-          <button onClick={getCity} type="submit">Get city</button>
-          <button onClick={handleCheck} type="submit">Check my guess</button>
+          <button onClick={getCity} type="submit">Get city 🌏</button>
+          <button onClick={handleCheck} type="submit">Check my guess ✅</button>
         </div>
 
-        <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}. The capital of {coords[2]} is {coords[3]}</h3>
+        <div className={showResult ? 'enable text result' : 'result disable text'}>
+          <h4>You are <text className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</text> <u className='right'>{coords[3]}</u> is the capital of {coords[2]}.</h4>
+        </div>
       </div >
       <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} />
     </div >

@@ -1,14 +1,23 @@
 body {
   background-color: yellowgreen;
-  padding: 2vh 2vw;
+  padding: 1vh 1vw 1vh 0vw;
+}
+
+p {
+  font-size: 26px;
 }
 
 .all {
   display: flex;
   flex-direction: row;
+  width: 97vw;
+  justify-content: space-between;
+  /* background-color: aqua; */
 }
 
 .app {
+  border: 2px lightgrey solid;
+  border-radius: 30px;
   height: 95vh;
   width: 48vw;
   display: flex;
@@ -16,18 +25,50 @@ body {
   background-color: white;
 }
 
-@media screen and (max-width: 480px) {}
+@media screen and (max-width: 480px) {
+  .app {
+    height: 48vh;
+    width: 95vw;
+  }
+
+  .all {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 .text {
-  font-size: 2.5vh;
+  /* font-size: 2.5vh; */
   font-family: sans-serif;
+  color: darkslategray
+}
+
+.right {
+  color: limegreen
+}
+
+.wrong {
+  color: tomato
+}
+
+.result {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.hint {
+  color: darkslategray
 }
 
 #desc-wrapper {
   padding: 0 10px;
   text-align: center;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   width: 30vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .give-hint-wrapper {
@@ -40,7 +81,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: violet;
+  /* background-color: violet; */
+  border-bottom: 2px lightgrey solid;
 }
 
 /* .give-hint-wrapper {
@@ -75,9 +117,17 @@ button {
   padding: 2% 0;
   display: flex;
   justify-content: space-evenly;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .disable {
   display: none;
+}
+
+button {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
+}
+
+button:hover {
+  transform: scale(1.05);
 }

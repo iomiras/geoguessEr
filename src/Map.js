@@ -1,25 +1,35 @@
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import { Wrapper } from '@googlemaps/react-wrapper';
+import Rick from './markers/rick26.png'
+import Morty from './markers/morty26.png'
 import './Map.css';
 // import { useState } from 'react';
 
 export const Map = ({ position, setPosition, pressedMap, setPressedMap, originalPosition, showResult }) => {
-    // console.log(text)
-    // const Map = ({ position }) => {
     const MapsKey = process.env.REACT_APP_MAPS_API
-    // const [position, setPosition] = useState({ lat: 43.238949, lng: 76.889709 })
 
     const handleMapClick = (event) => {
-        // console.log(event.latLng)
-        // console.log(event.latLng)
         setPressedMap(true)
         setPosition(event.latLng)
     }
+
+    // console.log(document.getElementsByTagName('body')[0].clientWidth);
 
     const containerStyle = {
         width: '48vw',
         height: '95vh'
     };
+
+    const containerStyleForDesktop = {
+        width: '48vw',
+        height: '95vh'
+    };
+
+    const containerStyleForMobile = {
+        width: '95vw',
+        height: '48vh'
+    };
+
     const defaultMapOptions = {
         fullscreenControl: false,
         mapTypeControl: false,
@@ -28,14 +38,14 @@ export const Map = ({ position, setPosition, pressedMap, setPressedMap, original
         keyboardShortcuts: false,
         draggableCursor: 'crosshair',
         minZoom: 2,
-        maxZoom: 18
+        maxZoom: 18,
+        borderRadius: '30px'
     };
     return (
         <div className='map'>
             <Wrapper apiKey={MapsKey}>
                 <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    // center={undefined}
+                    mapContainerStyle={document.getElementsByTagName('body')[0].clientWidth > 600 ? containerStyleForDesktop : containerStyleForMobile}
                     center={position}
                     zoom={0}
                     clickableIcons={false}
@@ -44,8 +54,8 @@ export const Map = ({ position, setPosition, pressedMap, setPressedMap, original
                     onClick={handleMapClick}
                     mapTypeId={'terrain'}
                 >
-                    <Marker visible={pressedMap ? true : false} cursor={'crosshair'} position={position}></Marker>
-                    <Marker visible={showResult ? true : false} cursor={'crosshair'} position={originalPosition}></Marker>
+                    <Marker icon={{ url: Morty }} visible={pressedMap ? true : false} cursor={'crosshair'} position={position}></Marker>
+                    <Marker icon={{ url: Rick }} visible={showResult ? true : false} cursor={'crosshair'} position={originalPosition}></Marker>
                 </GoogleMap>
             </Wrapper>
         </div >
