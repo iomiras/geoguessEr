@@ -1,6 +1,6 @@
 body {
-  background-color: yellowgreen;
-  padding: 1vh 1vw 1vh 0vw;
+  background-color: #99CCCC;
+  padding: 1vh 0vw 1vh 1vw;
 }
 
 p {
@@ -23,6 +23,7 @@ p {
   display: flex;
   flex-direction: column;
   background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
 @media screen and (max-width: 480px) {
@@ -45,6 +46,10 @@ p {
 
 .right {
   color: limegreen
+}
+
+.capital {
+  color: darkslateblue
 }
 
 .wrong {
@@ -82,7 +87,7 @@ p {
   flex-direction: row;
   justify-content: space-between;
   /* background-color: violet; */
-  border-bottom: 2px lightgrey solid;
+  border-bottom: 1px gray solid;
 }
 
 /* .give-hint-wrapper {
@@ -100,21 +105,10 @@ input {
   border: none
 }
 
-button {
-  min-height: 5vmin;
-  width: 25%;
-  text-align: center;
-  font-size: 2vmin;
-  height: auto;
-  border-radius: 3px;
-  border: none;
-  cursor: pointer;
-}
-
 #int-area {
   width: 100%;
   height: auto;
-  padding: 2% 0;
+  padding: 10% 0;
   display: flex;
   justify-content: space-evenly;
   /* background-color: blue; */
@@ -126,8 +120,22 @@ button {
 
 button {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
+  min-height: 5vmin;
+  width: 30%;
+  text-align: center;
+  font-size: 2vmin;
+  font-weight: normal;
+  height: auto;
+  cursor: pointer;
+  border: 1px white solid;
+  border-radius: 6px;
+  background-color: whitesmoke;
 }
 
 button:hover {
   transform: scale(1.05);
+}
+
+.not-working:hover {
+  transform: scale(1.0);
 }

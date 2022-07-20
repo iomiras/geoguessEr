@@ -15,11 +15,6 @@ export const Map = ({ position, setPosition, pressedMap, setPressedMap, original
 
     // console.log(document.getElementsByTagName('body')[0].clientWidth);
 
-    const containerStyle = {
-        width: '48vw',
-        height: '95vh'
-    };
-
     const containerStyleForDesktop = {
         width: '48vw',
         height: '95vh'

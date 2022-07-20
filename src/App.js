@@ -21,6 +21,7 @@ function App() {
   const [pressedMap, setPressedMap] = useState(false) //if user has pressed the map
   const [position, setPosition] = useState({ lat: 0, lng: 0 }) //position of user's marker
   const [originalPosition, setOriginalPosition] = useState({ lat: 43.238949, lng: 76.889709 }) //position of original city's marker
+  const [answered, setAnswered] = useState(true)
 
   function getCity() {
     setRandomCity(capitals[Math.floor(Math.random() * capitals.length)])
@@ -28,14 +29,18 @@ function App() {
     setShowResult(false)
     setAskedHint(false)
     setPressedMap(false)
+    setAnswered(false)
   }
 
   function handleCheck() {
     let d = getDistance(position, originalPosition)
-    if (d < 10000) {
+    if (d < 20000) {
       setResult(true)
     } else setResult(false)
     setShowResult(true)
+    setAnswered(true)
+    setAskedHint(false)
+    setPressedMap(false)
   }
 
   function handleGetHints() {
@@ -96,15 +101,16 @@ function App() {
         </div>
 
         <div id='int-area'>
-          <button onClick={getCity} type="submit">Get city 🌏</button>
-          <button onClick={handleCheck} type="submit">Check my guess ✅</button>
+          <button className={answered ? 'enable' : 'disable'} onClick={getCity} type="submit">Generate {showResult ? 'another' : ''} city 🌏</button>
+          <p className={!answered && !pressedMap ? 'text enable' : 'text disable'} >Mark the city on the map 👉</p>
+          <button className={!answered && pressedMap ? 'enable' : 'disable'} onClick={handleCheck} type="submit">Check my guess ✅</button>
         </div>
 
         <div className={showResult ? 'enable text result' : 'result disable text'}>
-          <h4>You are <text className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</text> <u className='right'>{coords[3]}</u> is the capital of {coords[2]}.</h4>
+          <h4>You are <span className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</span> <u className='capital'>{coords[3]}</u> is the capital of {coords[2]}.</h4>
         </div>
       </div >
-      <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} />
+      <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} answered={answered} setAnswered={setAnswered} />
     </div >
   );
 }
