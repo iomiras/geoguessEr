@@ -22,6 +22,7 @@ function App() {
   const [position, setPosition] = useState({ lat: 0, lng: 0 }) //position of user's marker
   const [originalPosition, setOriginalPosition] = useState({ lat: 43.238949, lng: 76.889709 }) //position of original city's marker
   const [answered, setAnswered] = useState(true)
+  const [distance, setDistance] = useState(0)
 
   function getCity() {
     setRandomCity(capitals[Math.floor(Math.random() * capitals.length)])
@@ -33,14 +34,14 @@ function App() {
   }
 
   function handleCheck() {
-    let d = getDistance(position, originalPosition)
-    if (d < 20000) {
+    let d = getDistance(position, originalPosition) / 1000
+    setDistance(parseFloat(d.toFixed(3)))
+    if (d < 20) {
       setResult(true)
     } else setResult(false)
     setShowResult(true)
     setAnswered(true)
     setAskedHint(false)
-    setPressedMap(false)
   }
 
   function handleGetHints() {
@@ -84,14 +85,14 @@ function App() {
             {/* <h3 className='text'>{coords[2]}</h3>
             <h4 className='text'>{coords[3]}</h4> */}
             <div>
-              <p className='text'>Longitude = <b> {coords[0]} </b></p>
-              <p className='text'>Latitude = <b> {coords[1]} </b></p>
+              <p className='text'>Longitude↔ = <b> {coords[0]} </b></p>
+              <p className='text'>Latitude↕ = <b> {coords[1]} </b></p>
             </div>
             <div className={askedHint ? 'enable' : 'disable'}>
-              <p className='text hint'>Local time = <b> {infoAboutCity.localtime} </b></p>
-              <p className='text hint'>Temperature = <b> {infoAboutCity.temp_c}°C </b></p>
-              <p className='text hint'>Weather = <b> {infoAboutCity.desc} </b></p>
-              <p className='text hint'>UV index = <b> {infoAboutCity.uv} </b></p>
+              <p className='text hint'>Local time🕰 = <b> {infoAboutCity.localtime} </b></p>
+              <p className='text hint'>Temperature🌡️ = <b> {infoAboutCity.temp_c}°C </b></p>
+              <p className='text hint'>Weather🌤 = <b> {infoAboutCity.desc} </b></p>
+              <p className='text hint'>UV index🌞 = <b> {infoAboutCity.uv} </b></p>
             </div>
           </div>
 
@@ -108,6 +109,7 @@ function App() {
 
         <div className={showResult ? 'enable text result' : 'result disable text'}>
           <h4>You are <span className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</span> <u className='capital'>{coords[3]}</u> is the capital of {coords[2]}.</h4>
+          <h4>Your guess was {distance} KM from the correct location.</h4>
         </div>
       </div >
       <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} answered={answered} setAnswered={setAnswered} />

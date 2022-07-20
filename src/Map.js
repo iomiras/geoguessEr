@@ -10,7 +10,8 @@ export const Map = ({ position, setPosition, pressedMap, setPressedMap, original
 
     const handleMapClick = (event) => {
         setPressedMap(true)
-        setPosition(event.latLng)
+        if (!showResult)
+            setPosition(event.latLng)
     }
 
     // console.log(document.getElementsByTagName('body')[0].clientWidth);
