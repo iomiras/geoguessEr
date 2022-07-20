@@ -5,11 +5,9 @@ import React from 'react';
 import cities from 'cities.json';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { GoogleMap, Marker } from '@react-google-maps/api';
-import { Wrapper } from '@googlemaps/react-wrapper';
+import { Map } from './Map';
 
 function App() {
-  const MapsKey = process.env.REACT_APP_MAPS_API
   const WeatherKey = process.env.REACT_APP_WEATHER_API
 
 
@@ -21,33 +19,6 @@ function App() {
   const [showResult, setShowResult] = useState(false)
   const [askedHint, setAskedHint] = useState(false)
   const [position, setPosition] = useState({ lat: 43.238949, lng: 76.889709 })
-
-  // const [marker, setMarker] = useState()
-
-  // const google = window.google;
-
-  const containerStyle = {
-    width: '48vw',
-    height: '95vh'
-  };
-
-  // var position = new window.google.maps.LatLng(-34.397, 150.644)
-
-  // const onLoad = marker => {
-  //   console.log(marker)
-  //   // setMarker(marker)
-  //   // console.log('marker: ', marker)
-  //   // console.log('marker: ', marker.position)
-  // }
-
-
-  const defaultMapOptions = {
-    fullscreenControl: false,
-    mapTypeControl: false,
-    streetViewControl: false,
-    minZoom: 2,
-    maxZoom: 18
-  };
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value)
@@ -70,8 +41,6 @@ function App() {
 
   function handleGetHints() {
     if (coords[3]) {
-      // console.log('position---- ', position)
-      // console.log(marker)
       setAskedHint(true)
       var config = {
         method: 'post',
@@ -90,7 +59,6 @@ function App() {
   }
 
   useEffect(() => {
-    // console.log(randomCity)
     if (randomCity.length !== 0) {
       let config = {
         method: 'get',
@@ -139,29 +107,7 @@ function App() {
 
         <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}</h3>
       </div >
-      {/* <Wrapper apiKey={"AIzaSyAF7mXLqb5GB5VINaURmUfnLjb753dfs2c"} render={render}>
-      </Wrapper> */}
-      <div className='map'>
-        <Wrapper apiKey={MapsKey}
-        >
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={position}
-            zoom={0}
-            clickableIcons={false}
-            draggable={true}
-            options={defaultMapOptions}
-          >
-
-
-            <Marker position={position}></Marker>
-
-          </GoogleMap>
-        </Wrapper>
-      </div> {/* end of map element  */}
-      {/* end of app element  =>*/}
-
-      {/* <p style={{ font- size: 2px'}}><a href="https://www.flaticon.com/free-icons/marker" title="marker icons">Marker icons created by kmg design - Flaticon</a></p> */}
+      <Map position={position} />
     </div >
   );
 }
