@@ -109,7 +109,7 @@ function App() {
 
         <div className={showResult ? 'enable text result' : 'result disable text'}>
           <h4>You are <span className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</span> <u className='capital'>{coords[3]}</u> is the capital of {coords[2]}.</h4>
-          <h4>Your guess was {distance} KM from the correct location.</h4>
+          <h4>Your guess was <span className='capital'>{distance} KM</span> from the correct location.</h4>
         </div>
       </div >
       <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} answered={answered} setAnswered={setAnswered} />
