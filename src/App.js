@@ -2,7 +2,7 @@
 // /* eslint-disable no-undef */
 import './App.css';
 import React from 'react';
-import cities from 'cities.json';
+import { capitals } from './capitals';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Map } from './Map';
@@ -23,7 +23,7 @@ function App() {
   const [originalPosition, setOriginalPosition] = useState({ lat: 43.238949, lng: 76.889709 }) //position of original city's marker
 
   function getCity() {
-    setRandomCity(cities[Math.floor(Math.random() * cities.length)])
+    setRandomCity(capitals[Math.floor(Math.random() * capitals.length)])
     setResult(false)
     setShowResult(false)
     setAskedHint(false)
@@ -59,21 +59,15 @@ function App() {
 
   useEffect(() => {
     if (randomCity.length !== 0) {
-      let config = {
-        method: 'get',
-        url: `https://geocode.xyz/${randomCity.name}?json=1`,
-      };
+      console.log(randomCity.CountryName)
+      parseFloat(parseFloat(randomCity.CapitalLatitude).toFixed(2))
 
-      axios(config)
-        .then(function (response) {
-          setCoords([response.data.longt, response.data.latt, response.data.standard.countryname, response.data.standard.city])
-          setInfoAboutCity({ localtime: '', temp_c: '', desc: '', uv: '' })
-          setOriginalPosition({ lat: parseFloat(response.data.latt), lng: parseFloat(response.data.longt) })
-        })
-        .catch(function (error) {
-          console.log(error)
-          console.error(error.response.data.error.message)
-        });
+      setCoords([parseFloat(parseFloat(randomCity.CapitalLongitude).toFixed(2)),
+      parseFloat(parseFloat(randomCity.CapitalLatitude).toFixed(2)),
+      randomCity.CountryName,
+      randomCity.CapitalName])
+      setInfoAboutCity({ localtime: '', temp_c: '', desc: '', uv: '' })
+      setOriginalPosition({ lat: parseFloat(randomCity.CapitalLatitude), lng: parseFloat(randomCity.CapitalLongitude) })
     }
   }, [randomCity]);
 
@@ -90,7 +84,7 @@ function App() {
               <p className='text'>Local time = <b> {infoAboutCity.localtime} </b></p>
               <p className='text'>Temperature = <b> {infoAboutCity.temp_c}°C </b></p>
               <p className='text'>Weather = <b> {infoAboutCity.desc} </b></p>
-              <p className='text'>UV = <b> {infoAboutCity.uv} </b></p>
+              <p className='text'>UV index = <b> {infoAboutCity.uv} </b></p>
             </div>
           </div>
 
@@ -104,7 +98,7 @@ function App() {
           <button onClick={handleCheck} type="submit">Check my guess</button>
         </div>
 
-        <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}. The city's name is {coords[3]}</h3>
+        <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}. The capital of {coords[2]} is {coords[3]}</h3>
       </div >
       <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} />
     </div >
