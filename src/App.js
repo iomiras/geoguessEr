@@ -23,6 +23,7 @@ function App() {
   const [originalPosition, setOriginalPosition] = useState({ lat: 43.238949, lng: 76.889709 }) //position of original city's marker
   const [answered, setAnswered] = useState(true)
   const [distance, setDistance] = useState(0)
+  const [showRules, setShowRules] = useState(true)
 
   function getCity() {
     setRandomCity(capitals[Math.floor(Math.random() * capitals.length)])
@@ -31,6 +32,7 @@ function App() {
     setAskedHint(false)
     setPressedMap(false)
     setAnswered(false)
+    setShowRules(false)
   }
 
   function handleCheck() {
@@ -106,9 +108,10 @@ function App() {
           <p className={!answered && !pressedMap ? 'text enable' : 'text disable'} >Mark the city on the map 👉</p>
           <button className={!answered && pressedMap ? 'enable' : 'disable'} onClick={handleCheck} type="submit">Check my guess ✅</button>
         </div>
+        <p className={showRules && !showResult ? 'enable rule text' : 'disable rule text'}>You have to guess the capital city by its description and mark it on the map</p>
 
         <div className={showResult ? 'enable text result' : 'result disable text'}>
-          <h4>You are <span className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</span> <u className='capital'>{coords[3]}</u> is the capital of {coords[2]}.</h4>
+          <h4>You are <span className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</span> <span className='capital'>{coords[3]}</span> is the capital of <span className='country'> {coords[2]}</span>.</h4>
           <h4>Your guess was <span className='capital'>{distance} KM</span> from the correct location.</h4>
         </div>
       </div >
