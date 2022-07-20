@@ -14,19 +14,13 @@ function App() {
 
   const [randomCity, setRandomCity] = useState([]) //city that is being guessed
   const [coords, setCoords] = useState([]) // city's corrds + country name + city name
-  const [userInput, setUserInput] = useState('') // user's city
   const [infoAboutCity, setInfoAboutCity] = useState({ localtime: '', temp_c: '', desc: '', uv: '' }) // city's desc
   const [result, setResult] = useState(false) //verdict
-  const [distance, setDistance] = useState(0) //verdict
   const [showResult, setShowResult] = useState(false) //if user has pressed 'check my answer'
   const [askedHint, setAskedHint] = useState(false) //if user has asked the hint
   const [pressedMap, setPressedMap] = useState(false) //if user has pressed the map
   const [position, setPosition] = useState({ lat: 0, lng: 0 }) //position of user's marker
   const [originalPosition, setOriginalPosition] = useState({ lat: 43.238949, lng: 76.889709 }) //position of original city's marker
-
-  const handleInputChange = (event) => {
-    setUserInput(event.target.value)
-  }
 
   function getCity() {
     setRandomCity(cities[Math.floor(Math.random() * cities.length)])
@@ -40,7 +34,6 @@ function App() {
     let d = getDistance(position, originalPosition)
     if (d < 10000) {
       setResult(true)
-      setUserInput('')
     } else setResult(false)
     setShowResult(true)
   }
@@ -89,8 +82,8 @@ function App() {
       <div className='app'>
         <div className={coords.length === 0 ? 'main-part-wrapper disable' : 'main-part-wrapper'}>
           <div id='desc-wrapper'>
-            <h3 className='text'>{coords[2]}</h3>
-            <h4 className='text'>{coords[3]}</h4>
+            {/* <h3 className='text'>{coords[2]}</h3>
+            <h4 className='text'>{coords[3]}</h4> */}
             <p className='text'>Longitude = <b> {coords[0]} </b></p>
             <p className='text'>Latitude = <b> {coords[1]} </b></p>
             <div className={askedHint ? 'enable' : 'disable'}>
@@ -108,14 +101,12 @@ function App() {
 
         <div id='int-area'>
           <button onClick={getCity} type="submit">Get city</button>
-          <input onChange={handleInputChange} value={userInput} type='text'></input>
           <button onClick={handleCheck} type="submit">Check my guess</button>
         </div>
 
-        <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}</h3>
+        <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}. The city's name is {coords[3]}</h3>
       </div >
       <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} />
-      {/* {console.log('app js: ', position)} */}
     </div >
   );
 }

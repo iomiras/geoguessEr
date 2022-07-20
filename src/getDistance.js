@@ -14,5 +14,4 @@ export const getDistance = function (position, originalPosition) {
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c;
     return d
-    console.log('distance ', d); // returns the distance in meter
 };
