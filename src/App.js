@@ -108,6 +108,7 @@ function App() {
         <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}</h3>
       </div >
       <Map position={position} setPosition={setPosition} />
+      {/* {console.log('app js: ', position)} */}
     </div >
   );
 }
