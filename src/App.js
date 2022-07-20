@@ -6,19 +6,23 @@ import cities from 'cities.json';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Map } from './Map';
+import { getDistance } from './getDistance';
 
 function App() {
   const WeatherKey = process.env.REACT_APP_WEATHER_API
 
 
-  const [randomCity, setRandomCity] = useState([])
-  const [coords, setCoords] = useState([])
-  const [userInput, setUserInput] = useState('')
-  const [infoAboutCity, setInfoAboutCity] = useState({ localtime: '', temp_c: '', desc: '', uv: '' })
-  const [result, setResult] = useState(false)
-  const [showResult, setShowResult] = useState(false)
-  const [askedHint, setAskedHint] = useState(false)
-  const [position, setPosition] = useState({ lat: 43.238949, lng: 76.889709 })
+  const [randomCity, setRandomCity] = useState([]) //city that is being guessed
+  const [coords, setCoords] = useState([]) // city's corrds + country name + city name
+  const [userInput, setUserInput] = useState('') // user's city
+  const [infoAboutCity, setInfoAboutCity] = useState({ localtime: '', temp_c: '', desc: '', uv: '' }) // city's desc
+  const [result, setResult] = useState(false) //verdict
+  const [distance, setDistance] = useState(0) //verdict
+  const [showResult, setShowResult] = useState(false) //if user has pressed 'check my answer'
+  const [askedHint, setAskedHint] = useState(false) //if user has asked the hint
+  const [pressedMap, setPressedMap] = useState(false) //if user has pressed the map
+  const [position, setPosition] = useState({ lat: 0, lng: 0 }) //position of user's marker
+  const [originalPosition, setOriginalPosition] = useState({ lat: 43.238949, lng: 76.889709 }) //position of original city's marker
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value)
@@ -29,10 +33,12 @@ function App() {
     setResult(false)
     setShowResult(false)
     setAskedHint(false)
+    setPressedMap(false)
   }
 
   function handleCheck() {
-    if (userInput.toLowerCase() === coords[3].toLowerCase()) {
+    let d = getDistance(position, originalPosition)
+    if (d < 10000) {
       setResult(true)
       setUserInput('')
     } else setResult(false)
@@ -69,9 +75,10 @@ function App() {
         .then(function (response) {
           setCoords([response.data.longt, response.data.latt, response.data.standard.countryname, response.data.standard.city])
           setInfoAboutCity({ localtime: '', temp_c: '', desc: '', uv: '' })
-          setPosition({ lat: parseFloat(response.data.latt), lng: parseFloat(response.data.longt) })
+          setOriginalPosition({ lat: parseFloat(response.data.latt), lng: parseFloat(response.data.longt) })
         })
         .catch(function (error) {
+          console.log(error)
           console.error(error.response.data.error.message)
         });
     }
@@ -107,7 +114,7 @@ function App() {
 
         <h3 className={showResult ? 'enable' : 'disable'}>you are {result ? 'right' : 'wrong'}</h3>
       </div >
-      <Map position={position} setPosition={setPosition} />
+      <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} />
       {/* {console.log('app js: ', position)} */}
     </div >
   );
