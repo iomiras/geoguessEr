@@ -22,7 +22,7 @@ export const Map = ({ position, setPosition, pressedMap, setPressedMap, original
     };
 
     const containerStyleForMobile = {
-        width: '95vw',
+        width: '92vw',
         height: '48vh'
     };
 

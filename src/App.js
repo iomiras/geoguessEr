@@ -24,6 +24,7 @@ function App() {
   const [answered, setAnswered] = useState(true)
   const [distance, setDistance] = useState(0)
   const [showRules, setShowRules] = useState(true)
+  const isDesktop = document.getElementsByTagName('body')[0].clientWidth > 600 //true is a desktop. false is a mobile
 
   function getCity() {
     setRandomCity(capitals[Math.floor(Math.random() * capitals.length)])
@@ -105,14 +106,15 @@ function App() {
 
         <div id='int-area'>
           <button className={answered ? 'enable' : 'disable'} onClick={getCity} type="submit">Generate {showResult ? 'another' : ''} city 🌏</button>
-          <p className={!answered && !pressedMap ? 'text enable' : 'text disable'} >Mark the city on the map 👉</p>
+          <p className={!answered && !pressedMap && isDesktop ? 'text enable' : 'text disable'} >Mark the city on the map 👉</p>
+          <p className={!answered && !pressedMap && !isDesktop ? 'text enable' : 'text disable'} >Mark the city on the map 👇</p>
           <button className={!answered && pressedMap ? 'enable' : 'disable'} onClick={handleCheck} type="submit">Check my guess ✅</button>
         </div>
         <p className={showRules && !showResult ? 'enable rule text' : 'disable rule text'}>You have to guess the capital city by its description and mark it on the map</p>
 
         <div className={showResult ? 'enable text result' : 'result disable text'}>
           <h4>You are <span className={result ? 'right' : 'wrong'}>{result ? 'right' : 'wrong'}!</span> <span className='capital'>{coords[3]}</span> is the capital of <span className='country'> {coords[2]}</span>.</h4>
-          <h4>Your guess was <span className='capital'>{distance} KM</span> from the correct location.</h4>
+          <h4 className={result ? 'disable' : 'enable'}>Your guess was <span className='capital'>{distance} KM</span> from the correct location.</h4>
         </div>
       </div >
       <Map position={position} setPosition={setPosition} pressedMap={pressedMap} setPressedMap={setPressedMap} originalPosition={originalPosition} showResult={showResult} answered={answered} setAnswered={setAnswered} />
